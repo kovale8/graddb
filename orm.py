@@ -1,8 +1,10 @@
 from datetime import datetime
-from sqlalchemy import Column, Integer, Numeric, String, Text,
+from sqlalchemy import Boolean, Column, Integer, Numeric, String, Text, \
     PrimaryKeyConstraint, ForeignKey, ForeignKeyConstraint
-from sqlalechemy.dialects.mysql import SMALLINT, TIMESTAMP
-from orm.base import BASE
+from sqlalchemy.dialects.mysql import SMALLINT, TIMESTAMP
+from sqlalchemy.ext.declarative import declarative_base
+
+BASE = declarative_base()
 
 '''
 1:M relationship
@@ -15,22 +17,20 @@ class Address(BASE):
 
     address_id = Column(SMALLINT(unsigned=True), nullable=False,
         primary_key=True)
-    customer_id = Column(SMALLINT(unsigned=True), nullable=False,
-        ForeignKey('customer.customer_id'))
+    customer_id = Column(SMALLINT(unsigned=True),
+        ForeignKey('customer.customer_id'), nullable=False)
     street = Column(String(50), nullable=False)
     city = Column(String(50), nullable=False)
     state = Column(String(2), nullable=False)
     # ISO Alpha-2
-    country = Column(String(2), nullbale=False)
+    country = Column(String(2), nullable=False)
     zip_code = Column(String(5), nullable=False)
     is_billing = Column(Boolean)
     is_shipping = Column(Boolean)
-    created_at = Column(TIMESTAMP, nullable=False)
-    updated_at = Column(TIMESTAMP, nullable=False)
 
     __table_args__ = (
         PrimaryKeyConstraint('address_id', name='PRIMARY'),
-        ForeignKeyConstraint(['customer_id', ['customer.customer_id'])
+        ForeignKeyConstraint(['customer_id'], ['customer.customer_id'])
     )
 
     def __init__(self, customer, street, city, state, country, zip_code,
@@ -43,8 +43,6 @@ class Address(BASE):
         self.zip_code = zip_code
         self.is_billing = is_billing
         self.is_shipping = is_shipping
-        self.created_at = datetime.today()
-        self.updated_at = datetime.today()
 
 
 class Customer(BASE):
@@ -56,20 +54,14 @@ class Customer(BASE):
     last_name = Column(String(50))
     email = Column(String(50), nullable=False)
     phone = Column(String(10))
-    created_at = Column(TIMESTAMP, nullable=False)
-    updated_at = Column(TIMESTAMP, nullable=False)
 
-    __table_args__ = (
-        PrimaryKeyConstraint('customer_id', name='PRIMARY')
-    )
+    __table_args__ = PrimaryKeyConstraint('customer_id', name='PRIMARY'),
 
-    def __init__(self, first_name=None, last_name=None, email, phone=None):
+    def __init__(self, email, first_name=None, last_name=None, phone=None):
         self.first_name = first_name
         self.last_name = last_name
         self.email = email
         self.phone = phone
-        self.created_at = datetime.today()
-        self.updated_at = datetime.today()
 
 
 class Order(BASE):
@@ -77,29 +69,25 @@ class Order(BASE):
 
     order_id = Column(SMALLINT(unsigned=True), nullable=False,
         primary_key=True)
-    customer_id = Column(SMALLINT(unsigned=True), nullable=False,
-        ForeignKey('customer.customer_id'))
-    billing_address = Column(SMALLINT(unsigned=True), nullable=False,
-        ForeignKey('address.address_id'))
-    shipping_address = Column(SMALLINT(unsigned=True), nullable=False,
-        ForeignKey('address.address_id'))
+    customer_id = Column(SMALLINT(unsigned=True), ForeignKey('customer.customer_id'),
+        nullable=False)
+    billing_address = Column(SMALLINT(unsigned=True), ForeignKey('address.address_id'),
+        nullable=False)
+    shipping_address = Column(SMALLINT(unsigned=True), ForeignKey('address.address_id'),
+        nullable=False)
     delivery_date = Column(TIMESTAMP)
-    created_at = Column(TIMESTAMP, nullable=False)
-    updated_at = Column(TIMESTAMP, nullable=False)
 
     __table_args__ = (
         PrimaryKeyConstraint('order_id', name='PRIMARY'),
         ForeignKeyConstraint(['customer_id'], ['customer.customer_id']),
-        ForeignKeyConstraint(['billing_address', 'shipping_address'],
-            ['address.address_id'])
+        ForeignKeyConstraint(['billing_address'], ['address.address_id']),
+        ForeignKeyConstraint(['shipping_address'], ['address.address_id'])
     )
 
     def __init__(self, customer, billing_address, shipping_address):
         self.customer = customer
         self.billing_address = billing_address
         self.shipping_address = shipping_address
-        self.created_at = datetime.today()
-        self.updated_at = datetime.today()
 
     def addProduct(product):
         self.product_order.append(Product_Order(product=product, order=self))
@@ -118,20 +106,14 @@ class Product(BASE):
     description = Column(Text())
     list_price = Column(Numeric(4, 2), nullable=False)
     quantity = Column(Integer(), nullable=False)
-    created_at = Column(TIMESTAMP, nullable=False)
-    updated_at = Column(TIMESTAMP, nullable=False)
 
-    __table_args__ = (
-        PrimaryKeyConstraint('product_id', name='PRIMARY')
-    )
+    __table_args__ = PrimaryKeyConstraint('product_id', name='PRIMARY'),
 
     def __init__(self, name, description, list_price, quantity):
         self.name = name
         self.description = description
         self.list_price = list_price
         self.quantity = quantity
-        self.created_at = datetime.today()
-        self.updated_at = datetime.today()
 
 
 '''
@@ -142,12 +124,10 @@ Products can appear in many orders and an order can contain multiple products.
 class Product_Order(BASE):
     __tablename__ = 'product_order'
 
-    product_id = Column(SMALLINT(unsigned=True), nullable=False,
-        ForeignKey('product.product_id'))
-    order_id = Column(SMALLINT(unsigned=True), nullable=False,
-        ForeignKey('order.order_id'))
-    created_at = Column(TIMESTAMP, nullable=False)
-    updated_at = Column(TIMESTAMP, nullable=False)
+    product_id = Column(SMALLINT(unsigned=True), ForeignKey('product.product_id'),
+        nullable=False)
+    order_id = Column(SMALLINT(unsigned=True), ForeignKey('order.order_id'),
+       nullable=False)
 
     __table_args__ = (
        PrimaryKeyConstraint('product_id', 'order_id', name='PRIMARY'),
@@ -158,5 +138,3 @@ class Product_Order(BASE):
     def __init__(self, product=None, order=None):
         self.product = product
         self.order = order
-        self.created_at = datetime.today()
-        self.updated_at = datetime.today()
