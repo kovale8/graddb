@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/kovale8/graddb/issues"
   },
-  "homepage": "https://github.com/kovale8/graddb#readme"
+  "homepage": "https://github.com/kovale8/graddb#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
 }
