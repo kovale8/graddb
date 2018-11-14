@@ -1,4 +1,3 @@
-const format = require('../util/format');
 const fs = require('fs');
 const ini = require('ini');
 const mysql = require('mysql');
@@ -22,7 +21,8 @@ function formatKeys(rows) {
         const newRow = {};
         const keys = Object.keys(row);
         keys.forEach(key => {
-            const newKey = format.snakeToCamel(key);
+            const newKey = key.replace(/(_\w)/g, match =>
+                match[1].toUpperCase());
             newRow[newKey] = row[key];
         });
         return newRow;

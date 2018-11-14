@@ -1,4 +1,3 @@
-const format = require('../util/format');
 const router = require('express').Router();
 const customers = require('../services/customers');
 
