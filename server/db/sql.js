@@ -1,3 +1,4 @@
+const format = require('../util/format');
 const fs = require('fs');
 const ini = require('ini');
 const mysql = require('mysql');
@@ -16,12 +17,24 @@ const pool = mysql.createPool({
     database: 'nile'
 });
 
+function formatKeys(rows) {
+    return rows.map(row => {
+        const newRow = {};
+        const keys = Object.keys(row);
+        keys.forEach(key => {
+            const newKey = format.snakeToCamel(key);
+            newRow[newKey] = row[key];
+        });
+        return newRow;
+    });
+}
+
 const fn = {
     query(sql) {
         return new Promise(resolve => {
             pool.query(sql, (error, results) => {
                 if (error) console.log(error.stack);
-                else resolve(results);
+                else resolve(formatKeys(results));
             });
         });
     },

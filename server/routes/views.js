@@ -1,20 +1,10 @@
-const db = require('../db');
+const format = require('../util/format');
 const router = require('express').Router();
+const customers = require('../services/customers');
 
 router.get('/', (req, res) => {
-    db.queryOne(`
-        SELECT *
-        FROM customer
-        WHERE customer_id = 1
-    `).then(results => {
-        const user = results;
-        res.render('home', {
-            name: user.first_name,
-            fullName: user.first_name + ' ' + user.last_name,
-            email: user.email_address,
-            phone: user.phone_number
-        });
-    });
+    customers.get(1)
+    .then(user => res.render('home', {user}));
 });
 
 module.exports = router;
