@@ -16,13 +16,19 @@ const pool = mysql.createPool({
     database: 'nile'
 });
 
-function query(sql) {
-    return new Promise(resolve => {
-        pool.query(sql, (error, results) => {
-            if (error) console.log(error.stack);
-            else resolve(results);
+const fn = {
+    query(sql) {
+        return new Promise(resolve => {
+            pool.query(sql, (error, results) => {
+                if (error) console.log(error.stack);
+                else resolve(results);
+            });
         });
-    });
-}
+    },
 
-module.exports = { query };
+    queryOne(sql) {
+        return this.query(sql).then(results => results[0]);
+    }
+};
+
+module.exports = fn;
