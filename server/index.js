@@ -1,6 +1,7 @@
 const db = require('./db');
 const express = require('express');
 const hbs = require('hbs');
+const helpers = require('./views/helpers');
 const path = require('path');
 const routes = require('./routes');
 
@@ -15,6 +16,7 @@ const viewPath = path.join(__dirname, 'views');
 app.set('view engine', 'hbs');
 app.set('views', viewPath);
 hbs.registerPartials(path.join(viewPath, 'partials'));
+helpers.bind(hbs);
 
 // Initialize the listening loop.
 app.listen(9000, 'localhost', () =>
