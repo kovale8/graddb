@@ -2,6 +2,11 @@
 
 ## Initialize the Database
 
+The MYSQL script for creating the database, tables, etc is `db/init.sql`.
+You can run this with: `mysql < db/init.sql`. 
+
+This will add a database called "nile" to your MYSQL server.
+
 Store your mysql login data in the file `.my.cnf` in your home directory.
 (This might be different for Windows.) Format the file as:
 ```
