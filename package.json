@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "./bin/www",
+    "build-css": "sass static/src/scss/bundle.scss static/dist/css/bundle.css",
     "watch-css": "sass --watch static/src/scss:static/dist/css"
   },
   "repository": {
