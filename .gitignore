@@ -2,6 +2,7 @@
 .DS_Store
 .sass-cache/
 .vscode
+dist
 venv
 __pycache__
 node_modules
