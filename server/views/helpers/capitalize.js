@@ -1,7 +1,8 @@
 function capitalize(string) {
+    if (!string) return string;
+
     // Normalize the string to all lowercase.
     string = string.toLowerCase();
-
     return string[0].toUpperCase() + string.slice(1);
 }
 

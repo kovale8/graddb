@@ -1,0 +1,24 @@
+<h1>Nile Customers</h1>
+<h2>Showing: {{customers.length}}</h2>
+<section class='tablebox'>
+    <table>
+        <thead>
+            <tr>
+                <td>Customer ID</td>
+                <td>Last Name</td>
+                <td>First Name</td>
+                <td>Email Address</td>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each customers}}
+                <tr>
+                    <td>{{getCustomerId this}}</td>
+                    <td>{{capitalize this.lastName}}</td>
+                    <td>{{capitalize this.firstName}}</td>
+                    <td>{{this.emailAddress}}</td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</section>

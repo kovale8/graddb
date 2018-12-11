@@ -1,0 +1,20 @@
+table {
+    border-collapse: collapse;
+}
+
+thead {
+    font-weight: $font-weight-heavy;
+}
+
+td {
+    padding: .5em 1em;
+    border-bottom: 1px solid $shadow-color;
+    text-align: left;
+}
+
+.tablebox {
+    display: inline-block;
+    padding: 1.5em;
+    border-radius: $border-radius;
+    box-shadow: $box-shadow;
+}

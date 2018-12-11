@@ -18,6 +18,15 @@ const customers = {
         `, [source, id]);
     },
 
+    getAll() {
+        return db.query(`
+            SELECT ${customerFields}
+            FROM Customer_View
+            ORDER BY last_name ASC
+            LIMIT 1000
+        `);
+    },
+
     findByEmail(email) {
         return db.queryOne(`
             SELECT ${customerFields}

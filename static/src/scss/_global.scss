@@ -3,12 +3,14 @@ $primary-color: #333;
 $light-text: white;
 $dark-text: black;
 $red: #960018;
+$shadow-color: #aaa;
 // Font
 $font: 1.25em sans-serif;
 $font-size-label: 1.5em;
 $font-weight-heavy: 700;
 
 $border-radius: 8px;
+$box-shadow: 0 0 15px 3px $shadow-color;
 
 * {
     margin: 0px;
@@ -27,6 +29,7 @@ body {
 
 main {
     margin: 2em;
+    text-align: center;
 
     a {
         color: #0066c0;
@@ -38,9 +41,8 @@ main {
         text-decoration: underline;
     }
 
-    h1 {
+    h1, h2 {
         margin-bottom: 2em;
-        text-align: center;
     }
 
     & > * {
