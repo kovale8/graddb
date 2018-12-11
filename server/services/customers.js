@@ -35,6 +35,22 @@ const customers = {
                 is_admin
             ) VALUES (?, ?, ?, ?)
         `, [firstName, lastName, email, 0]);
+    },
+
+    update(id, newInfo) {
+        return db.query(`
+            UPDATE Customer
+            SET
+                first_name = ?,
+                last_name = ?,
+                email_address = ?
+            WHERE customer_id = ?
+        `, [
+            newInfo.firstName,
+            newInfo.lastName,
+            newInfo.email,
+            id
+        ]);
     }
 };
 

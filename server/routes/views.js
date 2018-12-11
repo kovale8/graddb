@@ -41,19 +41,54 @@ router.route('/signup')
     ).then(customerId => res.redirect(`/user/Nile-${customerId}`));
 });
 
-router.get('/user/:source-:id', (req, res) => {
-    customers.get(req.params.source, req.params.id)
-    .then(customer => {
+router.get('/user/:source-:id', async (req, res) => {
+    let customer = res.locals.user;
+
+    if (!customer) {
+        customer = await customers.get(req.params.source, req.params.id);
         res.cookie('user', `${customer.source}-${customer.id}`, {
-            maxAge: 90000000,
-            httpOnly: true
+            maxAge: 90000000
         });
-        res.render('user', {
-            title: ': Your Account',
-            hideStatus: true,
-            customer
-        });
+    }
+
+    res.render('user', {
+        title: ': Your Account',
+        hideStatus: true,
+        customer
     });
+});
+
+router.route('/user/modify')
+.get((req, res) => {
+    const user = res.locals.user;
+    res.render('userModify', {
+        title: ': Update Info',
+        formFields: [
+            {
+                key: 'first_name',
+                label: 'First Name',
+                value: user.firstName
+            },
+            {
+                key: 'last_name',
+                label: 'Last Name',
+                value: user.lastName
+            },
+            {
+                key: 'email',
+                label: 'Email',
+                value: user.emailAddress
+            }
+        ]
+    });
+})
+.post((req, res) => {
+    const userId = res.locals.user.id;
+    customers.update(userId, {
+        firstName: req.body.first_name,
+        lastName: req.body.last_name,
+        email: req.body.email
+    }).then(() => res.redirect(`/user/Nile-${userId}`));
 });
 
 module.exports = router;

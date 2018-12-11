@@ -2,7 +2,11 @@
     {{#each formFields}}
         <div>
             <label for='{{this.key}}'>{{this.label}}</label>
-            <input type='text' id='{{this.key}}' name='{{this.key}}'>
+            <input
+                type='text'
+                id='{{this.key}}'
+                name='{{this.key}}'
+                value={{this.value}}>
         </div>
     {{/each}}
     <button type='submit'>{{submitText}}</button>
