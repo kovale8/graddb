@@ -1,18 +1,8 @@
-function capitalize(...strArgs) {
-    // Discard the options object.
-    strArgs.pop();
-    // Flatten the arguments into a single string.
-    const string = strArgs.join(' ');
+function capitalize(string) {
+    // Normalize the string to all lowercase.
+    string = string.toLowerCase();
 
-    // Split the string into individual words.
-    const words = string.split(' ');
-
-    // Capitalize each word.
-    const caps = words.map(word =>
-        word[0].toUpperCase() + word.slice(1));
-
-    // Return a single string.
-    return caps.join(' ');
+    return string[0].toUpperCase() + string.slice(1);
 }
 
 module.exports = capitalize;

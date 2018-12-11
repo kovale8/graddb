@@ -1,6 +1,5 @@
 *.swp
 .DS_Store
-.sass-cache/
 .vscode
 dist
 venv
