@@ -34,6 +34,14 @@ const suppliers = {
             DELETE FROM Supplier
             WHERE supplier_id = ?
         `, [id]);
+    },
+
+    update(id, name) {
+        return db.query(`
+            UPDATE Supplier
+            SET supplier_name = ?
+            WHERE supplier_id = ?
+        `, [name, id]);
     }
 };
 

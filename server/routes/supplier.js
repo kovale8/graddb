@@ -16,13 +16,22 @@ router.route('/add')
     .then(supplierId => res.redirect(`./${supplierId}`));
 });
 
-router.get('/:id', (req, res) => {
+router.route('/:id')
+.get((req, res) => {
     suppliers.get(req.params.id)
     .then(supplier => res.render('supplier', {
         title: ': Supplier',
         hideStatus: true,
-        supplier
+        formFields: [
+            {key: 'name', label: 'Supplier Name', value: supplier.name}
+        ]
     }));
+})
+.post((req, res) => {
+    if (!req.body.name)
+        return res.render('error', {text: 'Missing supplier name.'});
+    suppliers.update(req.params.id, req.body.name)
+    .then(() => res.redirect('/admin/suppliers'));
 });
 
 router.get('/delete/:id', (req, res) =>
