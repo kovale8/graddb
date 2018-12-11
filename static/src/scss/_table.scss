@@ -12,6 +12,14 @@ td {
     text-align: left;
 }
 
+tr.highlight {
+    cursor: pointer;
+}
+
+tr.highlight:hover {
+    background-color: $aqua;
+}
+
 .tablebox {
     display: inline-block;
     padding: 1.5em;

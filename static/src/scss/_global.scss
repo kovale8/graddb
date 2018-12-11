@@ -1,4 +1,6 @@
 // Colors
+$aqua: #e6ffff;
+$blue: #0066c0;
 $primary-color: #333;
 $light-text: white;
 $dark-text: black;
@@ -32,7 +34,7 @@ main {
     text-align: center;
 
     a {
-        color: #0066c0;
+        color: $blue;
         text-decoration: none;
     }
 
@@ -50,7 +52,10 @@ main {
     }
 }
 
-
 .bold {
     font-weight: $font-weight-heavy;
+}
+
+.link_container {
+    margin: 2em;
 }

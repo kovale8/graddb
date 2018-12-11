@@ -1,0 +1,21 @@
+<h1>Nile Suppliers</h1>
+<h2>Showing: {{suppliers.length}}</h2>
+<div class='link_container'>
+    <a href='/supplier/add'>Add a supplier</a>
+</div>
+<section class='tablebox'>
+    <table>
+        <thead>
+            <tr>
+                <td>Name</td>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each suppliers}}
+                <tr class='highlight' onclick='location.href="/supplier/{{this.id}}"'>
+                    <td>{{capitalize this.name}}</td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</section>

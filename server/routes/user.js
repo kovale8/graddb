@@ -25,8 +25,14 @@ router.route('/signin')
         return res.redirect('/admin');
 
     customers.findByEmail(req.body.email)
-    .then(customer =>
-        res.redirect(`/user/${customer.source}-${customer.id}`));
+    .then(customer => {
+        if (customer)
+            res.redirect(`/user/${customer.source}-${customer.id}`);
+        else
+            res.render('error', {
+                text: 'No user with these login credentials exists.'
+            });
+    });
 });
 
 router.route('/signup')
@@ -39,6 +45,8 @@ router.route('/signup')
     ]
 }))
 .post((req, res) => {
+    if (!req.body.email || !req.body.first_name || !req.body.last_name)
+        return res.render('error', {text: 'Missing information.'});
     customers.add(
         req.body.first_name,
         req.body.last_name,
