@@ -37,6 +37,13 @@ const customers = {
         `, [firstName, lastName, email, 0]);
     },
 
+    remove(id) {
+        return db.query(`
+            DELETE FROM Customer
+            WHERE customer_id = ?
+        `, [id]);
+    },
+
     update(id, newInfo) {
         return db.query(`
             UPDATE Customer

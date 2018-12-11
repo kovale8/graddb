@@ -1,13 +1,19 @@
 const customers = require('../services/customers');
 const router = require('express').Router();
 
+function deleteUserCookie(res) {
+    res.cookie('user', '', {
+        // Set to an arbitrary time in the past.
+        expires: new Date(Date.now() - 1000)
+    });
+}
+
 router.get('/', (req, res) => {
     res.render('homepage', {title: 'Online Shopping'});
 });
 
 router.get('/logout', (req, res) => {
-    // Delete the user cookie.
-    res.cookie('user', '', {expires: new Date(Date.now() - 1000)});
+    deleteUserCookie(res);
     res.render('logout', {title: ': Goodbye', hideStatus: true});
 });
 
@@ -56,6 +62,18 @@ router.get('/user/:source-:id', async (req, res) => {
         hideStatus: true,
         customer
     });
+});
+
+router.get('/user/delete', (req, res) => {
+    const user = res.locals.user;
+    deleteUserCookie(res);
+    customers.remove(user.id).then(() =>
+        res.render('userDelete', {
+            title: ': Account Deleted',
+            hideStatus: true,
+            user
+        })
+    );
 });
 
 router.route('/user/modify')

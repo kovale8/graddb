@@ -7,8 +7,6 @@ router.use((req, res, next) => {
     if (!userCookie)
         return next();
 
-    res.cookie()
-
     const id = userCookie.split('-');
     customers.get(id[0], id[1])
     .then(customer => {
