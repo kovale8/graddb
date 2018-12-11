@@ -12,6 +12,16 @@ router.get('/', (req, res) => {
     res.render('homepage', {title: 'Online Shopping'});
 });
 
+router.get('/admin', (req, res) => {
+    res.render('admin', {
+        title: 'Admin',
+        hideStatus: true,
+        options: [
+            'customers'
+        ]
+    });
+});
+
 router.get('/logout', (req, res) => {
     deleteUserCookie(res);
     res.render('logout', {title: ': Goodbye', hideStatus: true});
@@ -25,6 +35,9 @@ router.route('/signin')
     ]
 }))
 .post((req, res) => {
+    if (req.body.email === 'admin')
+        return res.redirect('/admin');
+
     customers.findByEmail(req.body.email)
     .then(customer =>
         res.redirect(`/user/${customer.source}-${customer.id}`));
