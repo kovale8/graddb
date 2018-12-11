@@ -1,21 +1,16 @@
-const customers = require('../services/customers');
+const fs = require('fs');
 const router = require('express').Router();
-const views = require('./views');
+const parseUserCookie = require('./util/parseUserCookie');
 
-router.use((req, res, next) => {
-    const userCookie = req.cookies.user;
-    if (!userCookie)
-        return next();
+router.use(parseUserCookie);
 
-    const id = userCookie.split('-');
-    customers.get(id[0], id[1])
-    .then(customer => {
-        if (customer)
-            res.locals.user = customer;
-        next();
-    });
+router.get('/', (req, res) => {
+    res.render('homepage', {title: 'Online Shopping'});
 });
 
-router.use('/', views);
+fs.readdirSync(__dirname)
+    .filter(file => file.endsWith('.js') && file !== 'index.js')
+    .map(file => file.slice(0, -3))
+    .forEach(file => router.use(`/${file}`, require(`./${file}`)));
 
 module.exports = router;

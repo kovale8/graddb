@@ -8,20 +8,6 @@ function deleteUserCookie(res) {
     });
 }
 
-router.get('/', (req, res) => {
-    res.render('homepage', {title: 'Online Shopping'});
-});
-
-router.get('/admin', (req, res) => {
-    res.render('admin', {
-        title: 'Admin',
-        hideStatus: true,
-        options: [
-            'customers'
-        ]
-    });
-});
-
 router.get('/logout', (req, res) => {
     deleteUserCookie(res);
     res.render('logout', {title: ': Goodbye', hideStatus: true});
@@ -60,7 +46,7 @@ router.route('/signup')
     ).then(customerId => res.redirect(`/user/Nile-${customerId}`));
 });
 
-router.get('/user/:source-:id', async (req, res) => {
+router.get('/:source-:id', async (req, res) => {
     let customer = res.locals.user;
 
     if (!customer) {
@@ -77,7 +63,7 @@ router.get('/user/:source-:id', async (req, res) => {
     });
 });
 
-router.get('/user/delete', (req, res) => {
+router.get('/delete', (req, res) => {
     const user = res.locals.user;
     deleteUserCookie(res);
     customers.remove(user.id).then(() =>
@@ -89,7 +75,7 @@ router.get('/user/delete', (req, res) => {
     );
 });
 
-router.route('/user/modify')
+router.route('/modify')
 .get((req, res) => {
     const user = res.locals.user;
     res.render('userModify', {
