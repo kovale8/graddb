@@ -1,16 +1,2 @@
 <h1>Create an Account</h1>
-<form method='POST' class='infobox'>
-    <div class='form_element'>
-        <label for='signup_first_name'>First Name</label>
-        <input type='text' id='signup_first_name' name='first_name'>
-    </div>
-    <div class='form_element'>
-        <label for='signup_last_name'>Last Name</label>
-        <input type='text' id='signup_last_name' name='last_name'>
-    </div>
-    <div class='form_element'>
-        <label for='signup_email'>Email</label>
-        <input type='text' id='signup_email' name='email'>
-    </div>
-    <button type='submit' class='form_element'>Sign Up</button>
-</form>
+{{>form submitText='Sign Up'}}

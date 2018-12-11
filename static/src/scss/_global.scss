@@ -1,9 +1,13 @@
+// Colors
 $primary-color: #333;
 $light-text: white;
 $dark-text: black;
+$red: #960018;
+// Font
 $font: 1.25em sans-serif;
 $font-size-label: 1.5em;
 $font-weight-heavy: 700;
+
 $border-radius: 8px;
 
 * {
@@ -33,7 +37,17 @@ main {
         color: #c45500;
         text-decoration: underline;
     }
+
+    h1 {
+        margin-bottom: 2em;
+        text-align: center;
+    }
+
+    & > * {
+        margin: 0 auto;
+    }
 }
+
 
 .bold {
     font-weight: $font-weight-heavy;

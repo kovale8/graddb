@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/kovale8/graddb#readme",
   "dependencies": {
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.4",
     "hbs": "^4.0.1",
     "ini": "^1.3.5",

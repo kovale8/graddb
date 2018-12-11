@@ -1,28 +1,40 @@
 const db = require('./db');
 
+const customerFields = `
+    customer_id AS id,
+    source,
+    first_name,
+    last_name,
+    email_address,
+    is_admin
+`;
+
 const customers = {
     get(source, id) {
-        return db.query(`
-            SELECT
-                first_name,
-                last_name,
-                email_address,
-                is_admin
+        return db.queryOne(`
+            SELECT ${customerFields}
             FROM Customer_View
             WHERE source = ? AND customer_id = ?
-        `, [source, id]).then(resultList => resultList[0]);
+        `, [source, id]);
+    },
+
+    findByEmail(email) {
+        return db.queryOne(`
+            SELECT ${customerFields}
+            FROM Customer_View
+            WHERE email_address = ?
+        `, [email]);
     },
 
     add(firstName, lastName, email) {
-        return db.query(`
+        return db.insert(`
             INSERT INTO Customer (
                 first_name,
                 last_name,
                 email_address,
                 is_admin
             ) VALUES (?, ?, ?, ?)
-        `, [firstName, lastName, email, 0])
-        .then(result => result.insertId);
+        `, [firstName, lastName, email, 0]);
     }
 };
 

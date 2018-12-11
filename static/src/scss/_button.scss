@@ -1,0 +1,15 @@
+button {
+    display: block;
+    margin: 1.25em auto;
+    padding: 10px 20px;
+    border-radius: $border-radius;
+    color: $light-text;
+    background-color: $primary-color;
+    font-size: $font-size-label;
+    font-weight: $font-weight-heavy;
+    cursor: pointer;
+
+    &.red {
+        background-color: $red;
+    }
+}

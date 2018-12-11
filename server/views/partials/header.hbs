@@ -4,4 +4,16 @@
     </a>
     <h3>Welcome to the Nile online shopping experience.</h3>
 </div>
-<a class='user_link' href='/signup'>Sign Up</a>
+{{#unless hideStatus}}
+    <div class='account_status'>
+        {{#if @user}}
+            <a class='user_link' href='/user/{{@user.source}}-{{@user.id}}'>
+                Hello, {{@user.firstName}}
+            </a>
+        {{else}}
+            <a class='user_link' href='/signup'>Sign Up</a>
+            or
+            <a class='user_link' href='/signin'>Sign In</a>
+        {{/if}}
+    </div>
+{{/unless}}

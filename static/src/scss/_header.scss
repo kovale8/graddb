@@ -10,7 +10,16 @@ header {
         margin-bottom: .5em;
     }
 
-    .user_link {
+    .account_status {
         padding-top: 2em;
+
+    }
+
+    .user_link {
+        margin: 0 .25em;
+    }
+
+    .user_link:hover {
+        text-decoration: underline;
     }
 }

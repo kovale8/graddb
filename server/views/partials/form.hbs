@@ -1,0 +1,9 @@
+<form method='POST' class='infobox'>
+    {{#each formFields}}
+        <div>
+            <label for='{{this.key}}'>{{this.label}}</label>
+            <input type='text' id='{{this.key}}' name='{{this.key}}'>
+        </div>
+    {{/each}}
+    <button type='submit'>{{submitText}}</button>
+</form>

@@ -25,6 +25,10 @@ function formatKeys(rows) {
 }
 
 const fn = {
+    insert(sql, values) {
+        return this.query(sql, values).then(result => result.insertId);
+    },
+
     query(sql, values) {
         return new Promise((resolve, reject) => {
             pool.query(sql, values, (error, results) => {
@@ -32,6 +36,10 @@ const fn = {
                 else resolve(formatKeys(results));
             });
         });
+    },
+
+    queryOne(sql, values) {
+        return this.query(sql, values).then(resultList => resultList[0]);
     }
 };
 
