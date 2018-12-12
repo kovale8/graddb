@@ -65,14 +65,19 @@ router.get('/:source-:id', async (req, res) => {
         });
     }
 
-    const cart = customerProducts.getShoppingCart(customer.source, customer.id);
-
     res.render('user', {
         title: ': Your Account',
         hideStatus: true,
         customer
     });
 });
+
+router.get('/:customer/cart', (req, res) =>
+    customerProducts.getShoppingCart(req.params.customer)
+    .then(productList => res.render('shoppingCart', {
+        title: 'Shopping Cart',
+        products: productList
+    })));
 
 router.get('/:customer/cart/:action/:product', (req, res) => {
     const action = customerProducts[req.params.action];

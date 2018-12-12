@@ -1,0 +1,10 @@
+<section id='product_list'>
+    {{#each products}}
+        <div class='product'>
+            <a class='title' href='/product/{{this.source}}-{{this.id}}'>
+                {{this.name}}
+            </a>
+            <span class='price'>{{getPrice this}}</span>
+        </div>
+    {{/each}}
+</section>
