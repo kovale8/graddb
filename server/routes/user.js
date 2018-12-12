@@ -68,6 +68,7 @@ router.get('/:source-:id', async (req, res) => {
         res.cookie('user', `${customer.source}-${customer.id}`, {
             maxAge: 90000000
         });
+        res.locals.user = customer;
     }
 
     res.render('user', {
