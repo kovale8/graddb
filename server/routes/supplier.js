@@ -17,16 +17,16 @@ router.route('/add')
 });
 
 router.route('/:id')
-.get((req, res) => {
-    suppliers.get(req.params.id)
-    .then(supplier => res.render('supplier', {
+.get((req, res) => suppliers.get(req.params.id).then(supplier =>
+    res.render('modify', {
         title: ': Supplier',
         hideStatus: true,
+        header: 'Nile Supplier',
         formFields: [
             {key: 'name', label: 'Supplier Name', value: supplier.name}
-        ]
-    }));
-})
+        ],
+        entity: supplier
+    })))
 .post((req, res) => {
     if (!req.body.name)
         return res.render('error', {text: 'Missing supplier name.'});

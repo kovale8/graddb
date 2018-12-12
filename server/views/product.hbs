@@ -1,0 +1,11 @@
+<section id='product_overview'>
+    <h1>{{product.name}}</h1>
+    <span class='price'>{{getPrice product}}</span>
+</section>
+<section id='product_description'>{{product.description}}</section>
+{{#if @user}}
+    <button type='button'
+            onclick='location.href="/user/{{getKey @user}}/cart/add/{{getKey product}}"'>
+        Add To Cart
+    </button>
+{{/if}}

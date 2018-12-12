@@ -1,9 +1,14 @@
 function capitalize(string) {
     if (!string) return string;
 
-    // Normalize the string to all lowercase.
+    if (typeof string !== 'string') return string;
+
     string = string.toLowerCase();
-    return string[0].toUpperCase() + string.slice(1);
+
+    let words = string.split(' ');
+    words = words .map(w => w[0].toUpperCase() + w.slice(1));
+
+    return words.join(' ');
 }
 
 module.exports = capitalize;

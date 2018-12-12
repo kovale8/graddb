@@ -1,0 +1,20 @@
+<h1>{{report.title}}</h1>
+<h2>Showing: {{report.rows.length}}</h2>
+<section class='tablebox'>
+    <table>
+        <thead>
+            <tr>
+                {{#each headers}}
+                    <td>{{this}}</td>
+                {{/each}}
+            </tr>
+        </thead>
+        <tbody>
+            {{#each report.rows}}
+                <tr class='highligh' onclick='location.href="/{{report.links}}/{{this.id}}"'>
+
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</section>

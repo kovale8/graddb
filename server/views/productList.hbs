@@ -1,0 +1,25 @@
+<h1>Nile Products</h1>
+<h2>Showing: {{products.length}}</h2>
+<section class='tablebox'>
+    <table>
+        <thead>
+            <tr>
+                <td>Product ID</td>
+                <td>Name</td>
+                <td>Category</td>
+                <td>Source</td>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each products}}
+                <tr class='highlight'
+                        onclick='location.href="/product/{{this.source}}-{{this.id}}"'>
+                    <td>{{this.id}}</td>
+                    <td>{{capitalize this.name}}</td>
+                    <td>{{capitalize this.category}}</td>
+                    <td>{{capitalize this.source}}</td>
+                </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</section>

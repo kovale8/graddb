@@ -1,1 +1,4 @@
-<h1>Hello, world!</h1>
+<h1>Browse Products By Category</h1>
+{{#each categories}}
+    <a class='menu_link' href='/search?category={{this.id}}'>{{this.name}}</a>
+{{/each}}

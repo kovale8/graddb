@@ -7,12 +7,14 @@
     <table>
         <thead>
             <tr>
+                <td>Supplier ID</td>
                 <td>Name</td>
             </tr>
         </thead>
         <tbody>
             {{#each suppliers}}
                 <tr class='highlight' onclick='location.href="/supplier/{{this.id}}"'>
+                    <td>{{this.id}}</td>
                     <td>{{capitalize this.name}}</td>
                 </tr>
             {{/each}}

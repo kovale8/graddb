@@ -1,4 +1,5 @@
 const customers = require('../services/customers');
+const customerProducts = require('../services/customerProducts');
 const router = require('express').Router();
 
 function deleteUserCookie(res) {
@@ -64,11 +65,22 @@ router.get('/:source-:id', async (req, res) => {
         });
     }
 
+    const cart = customerProducts.getShoppingCart(customer.source, customer.id);
+
     res.render('user', {
         title: ': Your Account',
         hideStatus: true,
         customer
     });
+});
+
+router.get('/:customer/cart/:action/:product', (req, res) => {
+    const action = customerProducts[req.params.action];
+    if (!action)
+        return res.render('error', {text: 'Invalid user action.'});
+
+    action(req.params.customer, req.params.product)
+    .then(() => res.redirect(`/user/${req.params.customer}`));
 });
 
 router.get('/delete', (req, res) => {

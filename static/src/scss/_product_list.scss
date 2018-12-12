@@ -1,0 +1,33 @@
+#product_list {
+    .product{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2em;
+        border-bottom: 2px solid $shadow-color;
+    }
+
+    .title {
+        font-size: 2em;
+        font-weight: $font-weight-heavy;
+        margin-bottom: .5em;
+    }
+}
+
+#product_overview {
+    margin-bottom: 3em;
+    padding-bottom: 2em;
+    border-bottom: 2px solid $shadow-color;
+}
+
+#product_description {
+    width: 60%;
+    margin: 0 0 4em 0;
+    text-align: left;
+}
+
+.price {
+    color: $red;
+    font-size: 1.5em;
+    font-weight: $font-weight-heavy;
+    margin-bottom: 2em;
+}
