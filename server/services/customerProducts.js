@@ -18,6 +18,10 @@ const customerProducts = {
         return db.query(`
             CALL Add_ShoppingCartItem(?, ?, ?, ?)
         `, customerKey.split('-').concat(productKey.split('-')));
+    },
+
+    checkout(customerSource, customerId) {
+
     }
 };
 

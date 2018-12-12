@@ -9,6 +9,11 @@ function deleteUserCookie(res) {
     });
 }
 
+router.get('/checkout', (req, res) => {
+    const customer = res.locals.user;
+    customerProducts.checkout(customer.source, customer.id);
+});
+
 router.get('/logout', (req, res) => {
     deleteUserCookie(res);
     res.render('logout', {title: ': Goodbye', hideStatus: true});
