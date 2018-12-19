@@ -1,18 +1,20 @@
-<h1>{{report.title}}</h1>
+<h1>Nile {{title}}</h1>
 <h2>Showing: {{report.rows.length}}</h2>
 <section class='tablebox'>
     <table>
         <thead>
             <tr>
-                {{#each headers}}
-                    <td>{{this}}</td>
+                {{#each report.columns}}
+                    <td>{{this.[0]}}</td>
                 {{/each}}
             </tr>
         </thead>
         <tbody>
             {{#each report.rows}}
-                <tr class='highligh' onclick='location.href="/{{report.links}}/{{this.id}}"'>
-
+                <tr>
+                    {{#each ../report.columns}}
+                        <td>{{getValue ../this this.[1]}}</td>
+                    {{/each}}
                 </tr>
             {{/each}}
         </tbody>

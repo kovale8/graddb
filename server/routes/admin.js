@@ -25,11 +25,19 @@ router.get('/customers', (req, res) =>
 
 router.get('/products', (req, res) =>
     products.getAll().then(productList =>
-        res.render('productList', {
+        res.render('report', {
             title: 'Products',
             hideStatus: true,
-            products: productList
-        })))
+            report: {
+                rows: productList,
+                columns: [
+                    ['Product ID', 'id'],
+                    ['Name', 'name'],
+                    ['Category', 'category'],
+                    ['Source', 'source']
+                ]
+            }
+        })));
 
 router.get('/suppliers', (req, res) =>
     suppliers.getAll().then(supplierList =>

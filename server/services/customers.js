@@ -5,8 +5,7 @@ const customerFields = `
     source,
     first_name,
     last_name,
-    email_address,
-    is_admin
+    email_address
 `;
 
 const customers = {
@@ -40,8 +39,7 @@ const customers = {
             INSERT INTO Customer (
                 first_name,
                 last_name,
-                email_address,
-                is_admin
+                email_address
             ) VALUES (?, ?, ?, ?)
         `, [firstName, lastName, email, 0]);
     },
