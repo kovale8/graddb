@@ -45,6 +45,39 @@ const products = {
         `);
     },
 
+    getInventory() {
+        return db.query(`
+            SELECT
+                product_id AS id,
+                product_name AS name,
+                inventory
+            FROM Product_Inventory_View
+        `);
+    },
+
+    getNeedsRestock() {
+        return db.query(`
+            SELECT
+                product_id AS id,
+                product_name AS name,
+                price,
+                inventory,
+                minimum_stock_level
+            FROM MinimumStockLevelProducts_Report_View
+        `);
+    },
+
+    getNotSellingTooWell() {
+        return db.query(`
+            SELECT
+                product_id AS id,
+                product_name AS name,
+                target_units_sold,
+                monthly_count
+            FROM NotSellingTooWell_Products_Report_View
+        `);
+    },
+
     findByCategory(categoryId) {
         return db.query(`
             SELECT ${fields}

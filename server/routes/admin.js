@@ -10,8 +10,12 @@ router.get('/', (req, res) => {
         options: [
             'customers',
             'products',
-            'suppliers'
-        ]
+            'inventory',
+            'suppliers',
+            'restock',
+            'nonactive',
+            'notsellingtoowell'
+        ].sort()
     });
 });
 
@@ -21,6 +25,50 @@ router.get('/customers', (req, res) =>
             title: 'Customers',
             hideStatus: true,
             customers: customerList
+        })));
+
+router.get('/inventory', (req, res) =>
+    products.getInventory().then(inventory =>
+        res.render('report', {
+            title: 'Inventory',
+            hideStatus: true,
+            report: {
+                rows: inventory,
+                columns: [
+                    ['Product ID', 'id'],
+                    ['Name', 'name'],
+                    ['# In Stock', 'inventory']
+                ]
+            }
+        })));
+
+router.get('/nonactive', (req, res) =>
+    customers.getNonActive().then(cust =>
+        res.render('report', {
+            title: 'Customers Who Have Not Been Too Active',
+            hideStatus: true,
+            report: {
+                rows: cust,
+                columns: [
+                    ['Customer ID', 'id']
+                ]
+            }
+        })));
+
+router.get('/notsellingtoowell', (req, res) =>
+    products.getNotSellingTooWell().then(prod =>
+        res.render('report', {
+            title: 'Products That Are Not Selling Too Well',
+            hideStatus: true,
+            report: {
+                rows: prod,
+                columns: [
+                    ['Product ID', 'id'],
+                    ['Name', 'name'],
+                    ['Target Units Sold', 'targetUnitsSold'],
+                    ['Monthly Count', 'monthlyCount']
+                ]
+            }
         })));
 
 router.get('/products', (req, res) =>
@@ -35,6 +83,23 @@ router.get('/products', (req, res) =>
                     ['Name', 'name'],
                     ['Category', 'category'],
                     ['Source', 'source']
+                ]
+            }
+        })));
+
+router.get('/restock', (req, res) =>
+    products.getNeedsRestock().then(restock =>
+        res.render('report', {
+            title: 'Needs Restocking',
+            hideStatus: true,
+            report: {
+                rows: restock,
+                columns: [
+                    ['Product ID', 'id'],
+                    ['Name', 'name'],
+                    ['Price', 'price'],
+                    ['# In Stock', 'inventory'],
+                    ['Minimum Stock Level', 'minimumStockLevel']
                 ]
             }
         })));

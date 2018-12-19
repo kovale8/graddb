@@ -26,6 +26,13 @@ const customers = {
         `);
     },
 
+    getNonActive() {
+        return db.query(`
+            SELECT customer_id AS id
+            FROM NotTooActive_Customers_Report_View
+        `);
+    },
+
     findByEmail(email) {
         return db.queryOne(`
             SELECT ${customerFields}
