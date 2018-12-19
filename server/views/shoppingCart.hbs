@@ -1,3 +1,5 @@
 <h1>{{capitalize @user.firstName}}'s Shopping Cart</h1>
 {{>productList}}
-<button type='button' onclick='/user/checkout'>Proceed To Checkout</button>
+<button type='button' onclick='location.href="/user/checkout"'>
+    Proceed To Checkout
+</button>

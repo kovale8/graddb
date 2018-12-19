@@ -11,7 +11,8 @@ function deleteUserCookie(res) {
 
 router.get('/checkout', (req, res) => {
     const customer = res.locals.user;
-    customerProducts.checkout(customer.source, customer.id);
+    customerProducts.checkout(customer.source, customer.id).then(shipDate =>
+        res.render('shipped', {shipDate}));
 });
 
 router.get('/logout', (req, res) => {
