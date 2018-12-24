@@ -47,8 +47,8 @@ const customers = {
                 first_name,
                 last_name,
                 email_address
-            ) VALUES (?, ?, ?, ?)
-        `, [firstName, lastName, email, 0]);
+            ) VALUES (?, ?, ?)
+        `, [firstName, lastName, email]);
     },
 
     remove(id) {
