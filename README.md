@@ -13,7 +13,7 @@
 
 ## Run the program
 
-`$ ./bin/www`
+Start the server with: `$ ./bin/www`
 
 For a database connection, the following environment variables must be made
 available to the process:
@@ -25,4 +25,9 @@ available to the process:
 
 Optional environment variables include:
 
-* `PORT`: port on which the node server will listen
+* `PORT`: port on which the node server will listen. **Default: 3000**
+
+## Additional notes
+
+The node server does not serve static files. A reverse proxy like
+[NGINX](https://nginx.com) is required.
