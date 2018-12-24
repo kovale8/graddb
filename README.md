@@ -1,32 +1,28 @@
 # Nile Online Shopping Experience
 
-## Initialize the Database
+## Dependencies
 
-The MYSQL script for creating the database, tables, etc is `db/init.sql`.
-You can run this with: `mysql < db/init.sql`. 
+* [NodeJS](https://nodejs.org/en)
+* [Sass](https://sass-lang.com/install)
 
-This will add a database called "nile" to your MYSQL server.
+## Build the necessary files
 
-Store your mysql login data in the file `.my.cnf` in your home directory.
-(This might be different for Windows.) Format the file as:
-```
-[client]
-host = <your host>
-user = <your username>
-password = <your password>
-```
+`$ npm install`
 
-When running the node application (described below), you may receive an error
-relating to authentication failure. In that case run the following command in
-mysql:
-```
-alter user 'USER'@'localhost' identified with mysql_native_password by 'PASSWORD'
-```
+`$ npm run build-css`
 
-## Run the Program
+## Run the program
 
-Download [NodeJS](https://nodejs.org/en/).
+`$ ./bin/www`
 
-Install all dependencies with `npm install`.
+For a database connection, the following environment variables must be made
+available to the process:
 
-Run the server with `node server`.
+* `DB_HOST`: database instance host
+* `DB_USER`: user to use for the connection
+* `DB_PASSWORD`: user's password
+* `DB_NAME`: database name
+
+Optional environment variables include:
+
+* `PORT`: port on which the node server will listen
